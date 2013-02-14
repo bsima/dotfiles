@@ -1,4 +1,6 @@
-# holman does dotfiles
+# bsima does dotfiles
+
+*Forked from @holman, credit to him.*
 
 ## dotfiles
 
