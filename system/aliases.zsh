@@ -48,6 +48,10 @@ function current_working_project {
 }
 cdefault
 
+# =============
+# Fun Shit
+# =============
+
 function :w () {
   echo "Ugh. You're not in vim, and your shits all retarded"
 }
@@ -64,4 +68,14 @@ function internet {
     echo 'nope'
   fi
 }
+
+function whoami () {
+  echo "Did you forget? You're" . $USERNAME . ", duh!"
+}
+
+# ==============
+# Typos
+# ==============
+
+alias cd `='cd ~'
 
