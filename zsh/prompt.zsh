@@ -1,4 +1,4 @@
-autoload colors && colors
+# autoload colors && colors
 # cheers, @ehrenmurdick
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
@@ -88,3 +88,5 @@ precmd() {
   title "zsh" "%m" "%55<...<%~"
   set_prompt
 }
+
+

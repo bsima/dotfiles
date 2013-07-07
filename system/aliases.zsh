@@ -38,15 +38,15 @@ function trash () {
 }
 
 # cd to the default working directory set by current_working_project
-function cdefault { 
-  export wdir=`cat $HOME/bin/config/current_project_path`
-  cd $wdir 
-}
+# function cdefault { 
+#   export wdir=`cat $HOME/bin/config/current_project_path`
+#   cd $wdir 
+# }
 
-function current_working_project {
-  pwd > ~/bin/config/current_project_path
-}
-cdefault
+# function current_working_project {
+#   pwd > ~/bin/config/current_project_path
+# }
+# cdefault
 
 # =============
 # Fun Shit
@@ -68,14 +68,3 @@ function internet {
     echo 'nope'
   fi
 }
-
-function whoami () {
-  echo "Did you forget? You're" . $USERNAME . ", duh!"
-}
-
-# ==============
-# Typos
-# ==============
-
-alias cd `='cd ~'
-
