@@ -26,6 +26,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " Don't wrap long lines
 " set nowrap
 
+syntax on
 " Twilight color scheme!!
 colorscheme twilight256
 

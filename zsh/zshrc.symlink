@@ -1,4 +1,4 @@
-
+autoload colors && colors
 export TERM=xterm-256color
 
 # The below was taken from http://github.com/holman/dotfiles

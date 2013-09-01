@@ -5,7 +5,7 @@
 DOTFILES_ROOT="`pwd`"
 
 set -e
-set -x
+# set -x
 
 echo ''
 
