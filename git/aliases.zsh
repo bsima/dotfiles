@@ -16,7 +16,10 @@ alias gca='git commit -a'
 alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
+
+# I think these two are the same... but I have to test to be sure
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+alias gitrm="git rm $(git ls-files --deleted)"
 
 alias pull="git pull"
 alias ci="git commit"

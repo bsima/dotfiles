@@ -14,7 +14,7 @@ alias _='sudo'
 alias please='sudo'
 alias plz='sudo'
 
-#alias g='grep -in'
+alias g='grep -in'
 
 # Show history
 alias history='fc -l 1'
