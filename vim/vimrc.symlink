@@ -47,7 +47,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Set tabs to equal 4 spaces
-set tabstop=4
+" Set tabs to equal 4 spaces and indent to equal 4 spaces
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 

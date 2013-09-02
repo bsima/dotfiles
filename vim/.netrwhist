@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/bsima/.dotfiles'
 let g:netrw_dirhist_2='/home/bsima/.dotfiles/.git'
 let g:netrw_dirhist_3='/home/bsima/.dotfiles/oh-my-zsh'
 let g:netrw_dirhist_4='/home/bsima/.dotfiles'
+let g:netrw_dirhist_5='/home/bsima/Code/tcenter/inc'
