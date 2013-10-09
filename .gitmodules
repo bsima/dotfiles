@@ -3,4 +3,7 @@
 	url = https://github.com/robbyrussell/oh-my-zsh/
 [submodule "vim/bundle/vim-markdown"]
 	path = vim/bundle/vim-markdown
-	url = git://github.com/plasticboy/vim-markdown.git
+    url = git://github.com/plasticboy/vim-markdown.git
+[submodule "vim/bundle/numbers"]
+    path = vim/bundle/numbers
+    url = git://github.com/myusuf3/numbers.vim.git
