@@ -5,6 +5,9 @@ alias reload!='. ~/.zshrc'
 alias pu='pushd'
 alias po='popd'
 
+# Easy clear
+alias cl=clear
+
 # Super user
 alias _='sudo'
 alias please='sudo'
@@ -24,3 +27,5 @@ alias sl=ls # often screw this up
 
 alias afind='ack-grep -il'
 
+# Save my ass
+alias rm='rm -i'

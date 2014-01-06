@@ -1,41 +1,53 @@
 # autoload colors && colors
 # cheers, @ehrenmurdick
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
+# 2013-12-01
 
-if (( $+commands[git] ))
-then
-  git="$commands[git]"
-else
-  git="/usr/bin/git"
-fi
+ruby_version() {
+  v=$(ruby -v | awk '{ printf("%.5s", $2) }')
+  echo -ne "$v"
+}
 
 git_branch() {
-  echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+  echo -ne $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
 git_dirty() {
-  st=$($git status 2>/dev/null | tail -n 1)
+  st=$(git st 2>/dev/null | tail -n 1)
   if [[ $st == "" ]]
   then
-    echo ""
+    echo " "
   else
-    if [[ "$st" =~ ^nothing ]]
+    if [[ $st == "nothing to commit (working directory clean)" ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo " "
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo "*"
     fi
   fi
 }
 
+git_pair() {
+  git pair -si
+}
+
 git_prompt_info () {
- ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
- echo "${ref#refs/heads/}"
+ ref=$(git symbolic-ref HEAD 2>/dev/null) || return
+ echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%})"
+}
+
+project_name () {
+  name=$(pwd | awk -F'projects/' '{print $2}' | awk -F/ '{print $1}')
+  echo $name
+}
+
+project_name_color () {
+  name=$(project_name)
+  echo "%{\e[0;35m%}${name}%{\e[0m%}"
 }
 
 unpushed () {
-  $git cherry -v @{upstream} 2>/dev/null
+  git cherry -v origin/$(git_branch) 2>/dev/null
 }
 
 need_push () {
@@ -43,50 +55,16 @@ need_push () {
   then
     echo " "
   else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+    echo "%{\e[0;33m%}$%{\e[0m%}"
   fi
 }
 
-rb_prompt(){
-  if (( $+commands[rbenv] ))
-  then
-	  echo "%{$fg_bold[yellow]%}$(rbenv version | awk '{print $1}')%{$reset_color%}"
-	else
-	  echo ""
-  fi
-}
-
-# This keeps the number of todos always available the right hand side of my
-# command line. I filter it to only count those tagged as "+next", so it's more
-# of a motivation to clear out the list.
-todo(){
-  if (( $+commands[todo.sh] ))
-  then
-    num=$(echo $(todo.sh ls +next | wc -l))
-    let todos=num-2
-    if [ $todos != 0 ]
-    then
-      echo "$todos"
-    else
-      echo ""
-    fi
-  else
-    echo ""
-  fi
-}
-
-directory_name(){
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
-}
-
-export PROMPT=$'\n$(rb_prompt) in $(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%} > '
 set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}$(todo)%{$reset_color%}"
+  export RPROMPT="$(git_prompt_info)$(git_dirty)$(need_push)"
 }
 
 precmd() {
-  title "zsh" "%m" "%55<...<%~"
-  set_prompt
+ print -Pn "\e]0;%~\a"
+ set_prompt
 }
-
-
