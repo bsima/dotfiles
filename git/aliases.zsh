@@ -27,12 +27,19 @@ alias st="git st"
 alias fetch="git fetch"
 alias "log"="git log"
 alias push="git push"
-alias add="git add"
+
+# Two aliases for adding files. The first ignores delete files,
+# the second includes them.
+alias add="git add --ignore-removal"
+alias ga="git add -A"
 
 alias fx='git fetch && gitx'
 alias giff='git diff | gitx'
 alias gitx='gitx --all'
 
+# I've never used this before, but I assume it is for when you finish
+# working on the staging branch and want to push your code, then push
+# to staging and merge staging with master
 alias booya="git pull && git push && git push staging staging:master"
 
 function card () {
