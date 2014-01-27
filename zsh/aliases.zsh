@@ -29,3 +29,7 @@ alias afind='ack-grep -il'
 
 # Save my ass
 alias rm='rm -i'
+
+# Capify is so much more climactic...
+alias capify="bundle exec cap install"
+alias capify!="bundle exec cap install"
