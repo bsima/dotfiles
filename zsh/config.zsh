@@ -50,5 +50,7 @@ bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
 
-
-
+# ZSH help files (when installed with homebrew)
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/helpfiles
