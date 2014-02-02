@@ -14,6 +14,6 @@ then
 fi
 
 # Install homebrew packages
-brew install grc coreutils spark wget vim git ranger tree zsh
+brew install grc coreutils spark wget vim git ranger tree zsh ack
 
 exit 0
