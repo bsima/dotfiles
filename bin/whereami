@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+# https://github.com/christianbundy/whereami/raw/master/whereami
+
+echo "$(tput setaf 2)$(whoami)$(tput setaf 0)@$(tput setaf 3)$(hostname)$(tput setaf 0):$(tput setaf 6)$(pwd)$(tput sgr0)"
