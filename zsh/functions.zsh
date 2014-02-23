@@ -8,3 +8,6 @@ function take() {
   cd $1
 }
 
+function speedtest() {
+  wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip
+}

@@ -26,7 +26,7 @@ alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 |
 alias last_migration="ls db/migrate | tail -n1 | head -c 14"
 
 # reloads passenger and pow
-function reload! () {
+function restart! () {
   touch tmp/restart.txt
 }
 
@@ -37,16 +37,16 @@ function trash () {
   mv $* ~/.Trash
 }
 
-# cd to the default working directory set by current_working_project
-# function cdefault { 
-#   export wdir=`cat $HOME/bin/config/current_project_path`
-#   cd $wdir 
-# }
+# cd to the current working directory set by current_working_project
+function cdproj {
+  export wdir=`cat $HOME/.dotfiles/bin/config/current_project_path`
+  cd $wdir
+}
 
-# function current_working_project {
-#   pwd > ~/bin/config/current_project_path
-# }
-# cdefault
+function setproj {
+  pwd > ~/.dotfiles/bin/config/current_project_path
+}
+#cdefault
 
 # =============
 # Fun Shit

@@ -9,7 +9,7 @@ ruby_version() {
 }
 
 git_branch() {
-  echo -ne $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+  echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
 git_dirty() {
@@ -33,7 +33,8 @@ git_pair() {
 
 git_prompt_info () {
  ref=$(git symbolic-ref HEAD 2>/dev/null) || return
- echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%})"
+ #echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%})"
+ echo "${ref#refs/heads/}"
 }
 
 project_name () {
