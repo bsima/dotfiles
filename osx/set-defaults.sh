@@ -34,8 +34,8 @@ sudo pmset -a standbydelay 86400
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
-# Menu bar: disable transparency
-defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
+# Menu bar: enable transparency
+defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool true
 
 # Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
@@ -45,6 +45,7 @@ for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
 		"/System/Library/CoreServices/Menu Extras/User.menu" \
 		"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
 done
+# ...but show the AirPort, Battery, and Clock icons.
 defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
@@ -142,7 +143,7 @@ sudo tmutil disablelocal
 sudo rm /Private/var/vm/sleepimage
 # Create a zero-byte file instead…
 sudo touch /Private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
+# ...and make sure it can't be rewritten
 sudo chflags uchg /Private/var/vm/sleepimage
 
 # Disable the sudden motion sensor as it’s not useful for SSDs
@@ -163,7 +164,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightC
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
-# Disable “natural” (Lion-style) scrolling
+# Disable "natural" (Lion-style) scrolling
 # defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Increase sound quality for Bluetooth headphones/headsets
@@ -238,7 +239,7 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 defaults write com.apple.finder QuitMenuItem -bool true
 
 # Finder: disable window animations and Get Info animations
-# defaults write com.apple.finder DisableAllAnimations -bool true
+defaults write com.apple.finder DisableAllAnimations -bool true
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 # Set Desktop as the default location for new Finder windows
@@ -358,7 +359,7 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 # Set the icon size of Dock items to 36 pixels
 defaults write com.apple.dock tilesize -int 36
 
-# Minimize windows into their application's icon
+# Don't minimize windows into their application's icon
 defaults write com.apple.dock minimize-to-application -bool false
 
 # Enable spring loading for all Dock items
@@ -382,10 +383,10 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # (i.e. use the old Exposé behavior instead)
 defaults write com.apple.dock expose-group-by-app -bool false
 
-# Disable Dashboard
+# Don't disable Dashboard
 defaults write com.apple.dashboard mcx-disabled -bool false
 
-# Don't show Dashboard as a Space
+# Don't show Dashboard as a Space (instead, overlay the current screen)
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Don't automatically rearrange Spaces based on most recent use
@@ -394,7 +395,7 @@ defaults write com.apple.dock mru-spaces -bool false
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
-#defaults write com.apple.dock autohide-time-modifier -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Enable the 2D Dock
 defaults write com.apple.dock no-glass -bool true
@@ -412,9 +413,9 @@ find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 sudo ln -sf /Applications/Xcode.app/Contents/Applications/iPhone\ Simulator.app /Applications/iOS\ Simulator.app
 
 # Add a spacer to the left side of the Dock (where the applications are)
-#defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
 # Add a spacer to the right side of the Dock (where the Trash is)
-#defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
+defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
 # Hot corners
 # Possible values:
@@ -548,10 +549,10 @@ sudo mdutil -E / > /dev/null
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Pro theme by default in Terminal.app
-# open "${HOME}/init/Mathias.terminal"
-# sleep 1 # Wait a bit to make sure the theme is loaded
-# defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
-# defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
+#open "${HOME}/init/Mathias.terminal"
+#sleep 1 # Wait a bit to make sure the theme is loaded
+#defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
+#defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
 
 # Enable "focus follows mouse”" for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
@@ -663,62 +664,49 @@ defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://
 # defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
 
 ###############################################################################
-# Transmission.app     
-# I don't have transmission...                                                #
+# Transmission.app
 ###############################################################################
 
 # Use `~/Documents/Torrents` to store incomplete downloads
+defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
 
-#defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
-
-#defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
-
-#
-
-## Don’t prompt for confirmation before downloading
-
-#defaults write org.m0k.transmission DownloadAsk -bool false
-
-#
+# Don't prompt for confirmation before downloading
+defaults write org.m0k.transmission DownloadAsk -bool false
 
 ## Trash original torrent files
-
-#defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
-
-#
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
 
 ## Hide the donate message
-
-#defaults write org.m0k.transmission WarningDonate -bool false
+defaults write org.m0k.transmission WarningDonate -bool false
 
 ## Hide the legal disclaimer
-
-#defaults write org.m0k.transmission WarningLegal -bool false
+defaults write org.m0k.transmission WarningLegal -bool false
 
 ###############################################################################
 # Twitter.app                                                                 #
 ###############################################################################
 
 # Disable smart quotes as it's annoying for code tweets
-#defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
+defaults write com.twitter.twitter-mac AutomaticQuoteSubstitutionEnabled -bool false
 
 # Show the app window when clicking the menu bar icon
-#defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
+defaults write com.twitter.twitter-mac MenuItemBehavior -int 1
 
 # Enable the hidden 'Develop' menu
-#defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
+defaults write com.twitter.twitter-mac ShowDevelopMenu -bool true
 
 # Open links in the background
-#defaults write com.twitter.twitter-mac openLinksInBackground -bool true
+defaults write com.twitter.twitter-mac openLinksInBackground -bool true
 
 # Allow closing the 'new tweet' window by pressing `Esc`
-#defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
+defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
 
 # Show full names rather than Twitter handles
-#defaults write com.twitter.twitter-mac ShowFullNames -bool true
+defaults write com.twitter.twitter-mac ShowFullNames -bool true
 
 # Hide the app in the background if it's not the front-most window
-#defaults write com.twitter.twitter-mac HideInBackground -bool true
+defaults write com.twitter.twitter-mac HideInBackground -bool true
 
 ###############################################################################
 # Kill affected applications                                                  #
