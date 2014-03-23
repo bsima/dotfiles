@@ -58,27 +58,35 @@ bind pad7 ${topleft}
 bind pad8 push top bar-resize:screenSizeY/2
 bind pad9 ${topright}
 
+# Location bindings
+bind t:${hyper} ${lefthalf}
+bind n:${hyper} ${full}
+bind s:${hyper} ${righthalf}
+bind r:${hyper} throw next
+
+# Resize Bindings
+#bind r:${hyper} ${leftmost}
+#bind g:${hyper} ${rightmost}
+
+# Focus Bindings
+bind right:${hyper}    focus right
+bind left:${hyper}     focus left
+bind up:${hyper}       focus up
+bind down:${hyper}     focus down
+
 ### Default Layout ###
 
-layout default 'TextMate':REPEAT ${lefthalf}
-layout default 'iTerm':REPEAT ${lefthalf}
-layout default 'Safari':REPEAT ${righthalf}
-layout default 'Chrome':REPEAT ${righthalf}
-layout default 'Marked':REPEAT ${righthalf}
-layout default 'Mail':REPEAT ${righthalf}
-layout default 'Path Finder':REPEAT ${righthalf}
-layout default 'Xcode':REPEAT ${full}
-layout default 'Evernote':REPEAT ${full}
-layout default 'Mendeley':REPEAT ${full}
-layout default 'iTunes':REPEAT ${full}
+layout macbook 'TextMate':REPEAT ${lefthalf}
+layout macbook 'iTerm':REPEAT ${lefthalf}
+layout macbook 'Safari':REPEAT ${righthalf}
+layout macbook 'Chrome':REPEAT ${righthalf}
+layout macbook 'Marked':REPEAT ${righthalf}
+layout macbook 'Mail':REPEAT ${righthalf}
+layout macbook 'Path Finder':REPEAT ${righthalf}
+layout macbook 'Xcode':REPEAT ${full}
+layout macbook 'Evernote':REPEAT ${full}
+layout macbook 'Mendeley':REPEAT ${full}
+layout macbook 'iTunes':REPEAT ${full}
 
 # Bind the layout to Hyper+l
-bind l:hyper layout default
-
-
-
-
-
-
-
-
+bind l:${hyper} layout macbook
