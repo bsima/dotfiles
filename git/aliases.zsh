@@ -42,14 +42,22 @@ alias gitx='gitx --all'
 # to staging and merge staging with master
 alias booya="git pull && git push && git push staging staging:master"
 
+# This doesn't work...
 function card () {
   git co `git branch -a | grep $1 | tail -n1 | sed 's/.*\///'`
 }
-
+# Neither does this...
 function git-check() {
   git log --format="%H %d" | ack $@
 }
 
+# For using with the `git_diff_wrapper` script in `../bin/`
+# http://technotales.wordpress.com/2009/05/17/git-diff-with-vimdiff/
+function git_diff() {
+  git diff --no-ext-diff -w "$@" | vim -R -
+}
+
+# It looks like this removes all branches except master...
 function rmb {
   current_branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   if [ "$current_branch" != "master" ]; then
