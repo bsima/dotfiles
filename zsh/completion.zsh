@@ -57,4 +57,6 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
-
+if [ -f ~/.dotfiles/bin/exercism_completion.bash ]; then
+  . ~/.dotfiles/bin/exercism_completion.bash
+fi
