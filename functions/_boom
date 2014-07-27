@@ -1,3 +1,4 @@
+#! /bin/zsh
 #compdef boom
 
 local state line cmds ret=1

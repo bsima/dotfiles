@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%m:%3~$(git_info_for_prompt)%# '
 else
@@ -55,17 +57,6 @@ bindkey '^?' backward-delete-char
 autoload run-help
 HELPDIR=/usr/local/share/zsh/helpfiles
 
-export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info  
-gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
-
-if [ -f "${GPG_AGENT_INFO_FILE}" ]; then
-  . "${GPG_AGENT_INFO_FILE}"
-  export GPG_AGENT_INFO
-  export SSH_AUTH_SOCK
-  export SSH_AGENT_PID
-fi
-
-export GPG_TTY=$(tty)
 
 # OCaml support
 . /Users/bsima/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true

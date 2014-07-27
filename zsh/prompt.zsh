@@ -1,3 +1,4 @@
+#! /bin/zsh
 # autoload colors && colors
 # cheers, @ehrenmurdick
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
@@ -8,6 +9,7 @@ ruby_version() {
   echo -ne "$v"
 }
 
+# Output the current git branch
 git_branch() {
   echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }

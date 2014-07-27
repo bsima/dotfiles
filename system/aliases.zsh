@@ -30,14 +30,19 @@ function restart! () {
   touch tmp/restart.txt
 }
 
-
-
 # better than rm -rf
 function trash () {
   mv $* ~/.Trash
 }
 
-# cd to the current working directory set by current_working_project
+# =============
+# Workding dir
+# =============
+# 
+# `setproj` sets to the current working directory to
+#           the project directory variable
+# `cdproj`  changes to the project directory
+
 function cdproj {
   export wdir=`cat $HOME/.dotfiles/bin/config/current_project_path`
   cd $wdir

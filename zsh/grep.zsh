@@ -1,3 +1,4 @@
+#! /bin/zsh
 #
 # Color grep results
 # Examples: http://rubyurl.com/ZXv

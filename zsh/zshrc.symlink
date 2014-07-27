@@ -1,3 +1,4 @@
+#! /bin/zsh
 autoload colors && colors
 export TERM=xterm-256color
 
@@ -6,7 +7,7 @@ export TERM=xterm-256color
 export ZSH=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
+export PROJECTS=$HOME/nebula
 
 # all of our zsh files
 typeset -U config_files
@@ -46,3 +47,16 @@ unset config_files
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH=$HOME/bin:$PATH
+
+## GPG Stuff
+export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info  
+gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
+
+if [ -f "${GPG_AGENT_INFO_FILE}" ]; then
+  . "${GPG_AGENT_INFO_FILE}"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
+fi
+
+export GPG_TTY=$(tty)
