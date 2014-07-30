@@ -11,7 +11,7 @@ export CLICOLOR=true
 
 fpath=($ZSH/zsh/functions $fpath)
 
-autoload -U $ZSH/zsh/functions/*(:t)
+autoload -U $ZSH/functions/*(:t)
 
 # ============
 # HISTORY
@@ -56,6 +56,20 @@ bindkey '^?' backward-delete-char
 #unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/helpfiles
+
+
+## GPG Stuff
+export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info  
+gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
+
+if [ -f "${GPG_AGENT_INFO_FILE}" ]; then
+  . "${GPG_AGENT_INFO_FILE}"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
+fi
+
+export GPG_TTY=$(tty)
 
 
 # OCaml support
