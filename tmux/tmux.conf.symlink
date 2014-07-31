@@ -1,1 +1,1 @@
-set-option -g default-shell /usr/local/bin/tmux
+set -g default-shell /usr/local/bin/zsh
