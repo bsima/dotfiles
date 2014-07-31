@@ -1,1 +1,8 @@
+unbind-key %
+unbind-key '"'
+unbind-key [
+set-option -g prefix C-a
+bind | split-window -h
+bind - split-window -v
+bind C-s copy-mode
 set -g default-shell /usr/local/bin/zsh
