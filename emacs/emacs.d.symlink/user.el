@@ -48,19 +48,21 @@
 
 ;; Uncomment this to increase font size
 ;; (set-face-attribute 'default nil :height 140)
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     ;; (color-theme-initialize)
-     (color-theme-sanityinc-tomorrow-night)
-     ;; (color-theme-sanityinc-tomorrow-bright)
-     ;; (color-theme-sanityinc-tomorrow-blue)
-     ;; (color-theme-sanityinc-tomorrow-eighties)
-     ;; (color-theme-moe-dark) ;; don't know if this one works
-     ))
+
+;; Load themes
+;; (require 'color-theme)
+;; (eval-after-load "color-theme"
+;; '(progn
+   ;; (color-theme-initialize)
+   ;; (color-theme-sanityinc-tomorrow-night)
+   ;; (color-theme-sanityinc-tomorrow-bright)
+   ;; (color-theme-sanityinc-tomorrow-blue)
+   ;; (color-theme-sanityinc-tomorrow-eighties)
+   ;; (color-theme-moe-dark) ;; don't know if this one works
+;;   ))
 
 ;;(load-theme 'moe-dark t)
-
+(load-theme 'sanityinc-tomorrow-night t)
 ;; == Customizations =======================================
 
 ;; Turn on line numbers
