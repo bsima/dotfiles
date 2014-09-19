@@ -48,3 +48,4 @@ unset config_files
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH=$HOME/bin:$PATH
 
+CIM_HOME=/Users/bsima/.cim; [ -s '/Users/bsima/.cim/init.sh' ] && . '/Users/bsima/.cim/init.sh'

@@ -4,11 +4,6 @@
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 # 2013-12-01
 
-ruby_version() {
-  v=$(ruby -v | awk '{ printf("%.5s", $2) }')
-  echo -ne "$v"
-}
-
 # Output the current git branch
 git_branch() {
   echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
@@ -62,7 +57,7 @@ need_push () {
   fi
 }
 
-export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%} > '
+export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%} $ '
 set_prompt () {
   export RPROMPT="$(git_prompt_info)$(git_dirty)$(need_push)"
 }
@@ -71,3 +66,4 @@ precmd() {
  print -Pn "\e]0;%~\a"
  set_prompt
 }
+

@@ -1,0 +1,116 @@
+set -g default-shell /usr/local/bin/zsh
+
+# colors!
+set -g default-terminal "screen-256color"
+
+set -s escape-time 0       # fastest command sequences
+set -sg repeat-time 600    # increase repeat timeout
+set -s quiet on            # disable various messages
+
+set -g prefix2 C-a         # GNU-Screen compatible
+bind C-a send-prefix 2
+
+set -g status-utf8 on      # expect UTF-8
+setw -g utf8 on
+
+set -g history-limit 5000  # boost history
+
+# edit conf
+bind e new-window -n '~/.tmux.conf' '${EDITOR:-vim} ~/.tmux.conf && tmux source ~/.tmux.conf && tmux display "~/.tmux.conf sourcec"'
+
+# reload conf
+bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
+
+# see https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
+if 'which -s reattach-to-user-namespace' 'set -g default-command "tmux rename-window initializing; tmux set -w automatic-rename; reattach-to-user-namespace $SHELL -l"'
+
+# -- display -------------------------------------------------------------------
+
+set -g base-index 1         # start windows numbering at 1
+setw -g pane-base-index 1   # make pane numbering consistent with windows
+
+setw -g automatic-rename on # rename window to reflect current program
+# renumber windows when a window is closed
+set -g renumber-windows on
+
+set -g set-titles on                        # set terminal title
+set -g set-titles-string '#h ❐ #S ● #I #W'
+
+set -g display-panes-time 800 # slightly longer pane indicators display time
+set -g display-time 1000      # slightly longer status messages display time
+
+set -g status-interval 10     # redraw status line every 10 seconds
+
+# 24 hour clock
+setw -g clock-mode-style 24
+
+# clear both screen and history
+bind -n C-l send-keys C-l \; run 'tmux clear-history'
+
+# activity
+set -g monitor-activity on
+set -g visual-activity off
+
+# tmux theme, colors and status line
+# available themes:
+#   - powerline (a powerline inspired theme)
+#   - powerline_patched_font (a powerline inspired theme using a patched font)
+#tmux_conf_theme=powerline
+
+# -- navigation ----------------------------------------------------------------
+
+# create new session
+bind C-c new-session
+
+# find session
+bind C-f command-prompt -p find-session 'switch-client -t %%'
+
+# split current window vertically, retain current path
+bind '"' split-window -h -c "#{pane_current_path}"
+bind | split-window -h -c "#{pane_current_path}"
+# split current window horizontally, retain current path
+unbind %
+bind % split-window -v -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+
+# pane navigation
+bind -r h select-pane -L  # move left
+bind -r j select-pane -D  # move down
+bind -r k select-pane -U  # move up
+bind -r l select-pane -R  # move right
+bind > swap-pane -D       # swap current pane with the next one
+bind < swap-pane -U       # swap current pane with the previous one
+
+# maximize current pane
+bind + run 'cut -c3- ~/.tmux.conf | sh -s maximize_pane'
+
+# pane resizing
+bind -r H resize-pane -L 2
+bind -r J resize-pane -D 2
+bind -r K resize-pane -U 2
+bind -r L resize-pane -R 2
+
+
+# window navigation
+bind -r C-h previous-window # select previous window
+bind -r C-l next-window     # select next window
+bind Space last-window      # move to last active window
+
+# toggle mouse
+bind m run "cut -c3- ~/.tmux.conf | sh -s toggle_mouse"
+
+
+# -- copy mode -----------------------------------------------------------------
+
+bind Enter copy-mode # enter copy mode
+bind b list-buffers  # list paster buffers
+bind p paste-buffer  # paste from the top pate buffer
+bind P choose-buffer # choose which buffer to paste from
+
+
+# Sane scrolling
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# -- user defined --------------------------------------------------------------
+
+if '[ -f ~/.tmux.conf.local ]' 'source ~/.tmux.conf.local'

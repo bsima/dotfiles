@@ -24,11 +24,11 @@
 ;; 
 ;; Adding this code will make Emacs enter yaml mode whenever you open
 ;; a .yml file
-(add-to-list 'load-path "~/.emacs.d/vendor")
+;(add-to-list 'load-path "~/.emacs.d/vendor")
 
 ;; PHP packages
-;(require 'php-mode)
-;(require 'flymake-php)
+;;(require 'php-mode)
+;;(require 'flymake-php)
 
 ;; shell scripts
 (setq-default sh-basic-offset 2)
@@ -37,7 +37,6 @@
 ;; === File extensions =====================================
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.hl\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 
 
@@ -49,20 +48,11 @@
 ;; Uncomment this to increase font size
 ;; (set-face-attribute 'default nil :height 140)
 
-;; Load themes
-;; (require 'color-theme)
-;; (eval-after-load "color-theme"
-;; '(progn
-   ;; (color-theme-initialize)
-   ;; (color-theme-sanityinc-tomorrow-night)
-   ;; (color-theme-sanityinc-tomorrow-bright)
-   ;; (color-theme-sanityinc-tomorrow-blue)
-   ;; (color-theme-sanityinc-tomorrow-eighties)
-   ;; (color-theme-moe-dark) ;; don't know if this one works
-;;   ))
 
-;;(load-theme 'moe-dark t)
-(load-theme 'sanityinc-tomorrow-night t)
+;(load-theme 'solarized-light t)
+;(load-theme 'solarized-dark t)
+(load-theme 'cyberpunk t)
+
 ;; == Customizations =======================================
 
 ;; Turn on line numbers
@@ -77,7 +67,6 @@
 ;; Flyspell often slows down editing so it's turned off
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
 
-(load "~/.emacs.d/vendor/clojure")
 
 ;; hippie expand - don't try to complete with file names
 (setq hippie-expand-try-functions-list (delete 'try-complete-file-name hippie-expand-try-functions-list))
@@ -95,5 +84,6 @@
 ;; (setq evil-default-cursor t)
 
 ;; Textmate mode
-(require 'textmate)
-(textmate-mode)
+;;(require 'textmate)
+;;(textmate-mode)
+
