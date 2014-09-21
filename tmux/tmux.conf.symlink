@@ -68,8 +68,10 @@ set -g visual-activity off
 # available themes:
 #   - powerline (a powerline inspired theme)
 #   - powerline_patched_font (a powerline inspired theme using a patched font)
-tmux_conf_theme=powerline
-
+run-shell "powerline-daemon -q"
+tmux_conf_theme=powerline_patched_font
+# re: https://powerline.readthedocs.org/en/latest/usage/other.html
+#source "/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
 
 # -- navigation ----------------------------------------------------------------
 
