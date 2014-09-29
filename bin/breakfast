@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# A command to run every morning!
+#
+# Other ideas:
+#   - setup a notes repo for emacs org files and update it every morning
+#   - run full on `doctor` script after I fix it up a bit
+
+brew update
+brew upgrade
+emacs --daemon

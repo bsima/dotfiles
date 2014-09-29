@@ -7,7 +7,7 @@ alias pu='pushd'
 alias po='popd'
 
 # Easy clear
-alias cl=clear
+alias clr=clear
 
 # Super user
 alias _='sudo'

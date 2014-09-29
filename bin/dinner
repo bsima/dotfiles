@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# A script to run every night!
+#
+# Ideas:
+#   - basically like `breakfast` except the opposite!
