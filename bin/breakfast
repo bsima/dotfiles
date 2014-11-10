@@ -8,4 +8,4 @@
 
 brew update
 brew upgrade
-emacs --daemon
+start-emacs

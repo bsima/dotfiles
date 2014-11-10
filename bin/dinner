@@ -4,3 +4,6 @@
 #
 # Ideas:
 #   - basically like `breakfast` except the opposite!
+
+stop-emacs
+brew doctor
