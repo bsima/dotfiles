@@ -32,11 +32,6 @@ fi
 # drip         - Makes the JVM start superfast
 # autojump     - A tool for jumping around dirs, I don't really know how to use it yet...
 # transmission - Commandline utils for Transmission.app BitTorrent client
-# cask         - A brew addon for installing binaries (e.g. Google Chrome)
-# emacs        - Yay emacs
-brew install grc coreutils spark wget vim git ranger tree zsh ack drip autojump transmission cask emacs
-
-# Don't forget to install the GUI Emacs!
-brew cask install emacs
+brew install grc coreutils spark wget vim git ranger tree zsh ack drip autojump transmission
 
 exit 0
