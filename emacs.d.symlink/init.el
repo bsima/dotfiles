@@ -26,6 +26,21 @@
                         "c:/home/bsima")
   "My home directory - root of my personal emacs-load-path")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Languages
+
+;; Common Lisp
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+
+;; Clojure
+; ... To be continued
+
+;; Python
+; ... To be continued
+
+;; OCaml
+; ... To be continued
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keyboard shortcuts
@@ -50,6 +65,11 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+(defvar fantasque-font
+  "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+(add-to-list 'default-frame-alist '(font . fantasque-font))
+(set-frame-font fantasque-font nil t)
 
 (load-theme 'tangotango t)
 
