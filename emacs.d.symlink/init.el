@@ -29,12 +29,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Languages
 
-;; Common Lisp
+
+;; Lisp
+
+;; SBCL
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
 
 ;; Clojure
-; ... To be continued
 
 ;; Python
 ; ... To be continued
@@ -45,9 +47,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keyboard shortcuts
 
+;; alias C-; to M (meta, alt)
+(global-set-key (kbd "C-;") 'execute-extended-command)
 ;; alias C-x/c C-m to M-x (tho I don't use it too often)
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
+
+;; alias C-' to shell-command (usually M-!)
+(global-set-key (kbd "C-'") 'shell-command)
 
 ;; make C-w into backspace, C-x/c C-k into "cut" (which is what C-w was previously)
 ;; this one is really handy...
@@ -66,10 +73,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(defvar fantasque-font
-  "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-(add-to-list 'default-frame-alist '(font . fantasque-font))
-(set-frame-font fantasque-font nil t)
+(let ((fantasque-font
+      "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
+  (set-frame-font fantasque-font nil t))
 
 (load-theme 'tangotango t)
 
