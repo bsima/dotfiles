@@ -1,5 +1,23 @@
-;;; When this file gets to be over ~200 lines, I'll break up the
-;;; sections into their own files
+;;; init.el - My emacs stuff
+;;
+;; Author:   Ben Sima <bensima@gmail.com>
+;; URL:      http://github.com/bsima/dotfiles
+;; Version:  42
+;; Keywords: mine
+
+;;; Commentary:
+
+;; Some of this is taken from Steve Yegge:
+;;   https://sites.google.com/site/steveyegge2/my-dot-emacs-file
+;;   https://sites.google.com/site/steveyegge2/my-dot-emacs-file
+;;
+;; When I borrowed stuff, I tried to include inline-references to
+;; the original code.
+;;
+;; When this file gets to be over ~200 lines, I'll break up the
+;; sections into their own files
+
+;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Packages
@@ -12,19 +30,6 @@
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Environment
-
-(require 'cl)
-
-(defvar emacs-root (if (or (eq system-type 'cygwin)
-                           (eq system-type 'gnu/linux)
-                           (eq system-type 'linux))
-                        "/home/bsima/"
-                        "c:/home/bsima")
-  "My home directory - root of my personal emacs-load-path")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Languages
@@ -44,26 +49,88 @@
 ;; OCaml
 ; ... To be continued
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Environment
+
+(require 'cl) ;; use common lisp everywhere
+
+;; My emacs home directory
+(defvar emacs-root (if (or (eq system-type 'darwin)
+                           (eq system-type 'gnu/linux)
+                           (eq system-type 'linux))
+                        "/home/bsima/.emacs.d/"
+                        "c:/home/bsima"))
+
+;;;;;;;;;
+;; src => http://howardism.org/Technical/Emacs/eshell-fun.html
+(defun eshell-here ()
+  "Opens up a new shell in the directory assiated with the
+current buffer's file. The eshell is renamed to match said
+directory for easier identification if useing multiple eshells."
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+		     (file-name-directory (buffer-file-name))
+		   default-directory))
+	 (height (/ (window-total-height) 3))
+	 (name (car (last (split-string parent "/" t)))))
+    (split-window-vertically (- height))
+    (other-window 1)
+    (eshell "new")
+    (rename-buffer (concat "*eshell: " name "*"))
+    (insert (concat "ls"))
+    (eshell-send-input)))
+
+(defun eshell/x ()
+  "From the eshell, `x` exits the shell and closes the window."
+  (insert "exit")
+  (eshell-send-input)
+  (delete-window))
+
+;; also useful: http://www.masteringemacs.org/article/complete-guide-mastering-eshell
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keyboard shortcuts
+;;;
+;;;    C-:         new eshell in lower third (eshell-here)
+;;;    C-"         shell-command (usually M-!)
+;;;    C-;         same as M-x
+;;;    C-x C-m     same as M-x
+;;;    C-c C-m     same as M-x
+;;;    C-w         backspace
+;;;    C-x/c C-k   cut selected text
+;;;    M-Shift-L   toggle line numbers
+;;;  Multiple cursors
+;;;    C-S-s C-S-s Add cursor to each line in a region
+;;;    C->         Mark the next similar (not-continuous)
+;;;    C->         Mark the previous similiar (not-continuous)
+;;;    C-c C-<     Mark all similar (not-continuous)
+;;;
 
-;; alias C-; to M (meta, alt)
+(global-set-key (kbd "C-:") 'eshell-here)
 (global-set-key (kbd "C-;") 'execute-extended-command)
-;; alias C-x/c C-m to M-x (tho I don't use it too often)
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-
-;; alias C-' to shell-command (usually M-!)
-(global-set-key (kbd "C-'") 'shell-command)
-
-;; make C-w into backspace, C-x/c C-k into "cut" (which is what C-w was previously)
-;; this one is really handy...
+(global-set-key (kbd "C-\"") 'shell-command)
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
+(global-set-key (kbd "M-L") 'linum-mode)
 
 ;; M-x qrr = find and replace
 (defalias 'qrr 'query-replace-regexp)
+
+;;; Multiple cursors
+;;; http://github.com/magnars/multiple-cursors.el
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;;; Default window movement - use Shift+arrow-key to move between windows
+(windmove-default-keybindings)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Display
@@ -73,14 +140,15 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(let ((fantasque-font
-      "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
-  (set-frame-font fantasque-font nil t))
+(setq fantasque-font "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+(set-frame-font fantasque-font nil t)
 
 (load-theme 'tangotango t)
 
-(load-library "~/.emacs-local")
+;; load transpose-frame
+(load-file (concat emacs-root "transpose-frame.el"))
+(require 'transpose-frame)
 
-(shell)
+(load-library "~/.emacs-local")
 
 ;;; end .emacs

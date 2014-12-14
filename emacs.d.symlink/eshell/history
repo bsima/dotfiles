@@ -1,0 +1,128 @@
+ls env/bin
+source env/bin/activate
+env/bin/activate
+chmod a+x env/bin/activate
+env/bin/activate
+source env/bin/activate
+rm -rf env
+make client
+echo $PATH
+make client
+make env
+echo $VENV
+make env
+ls
+sudo make env
+virtualenv
+virtualenv env
+make env
+make env
+make env
+rm -rf env
+make env
+make client
+make client
+make client
+make env
+make client
+make client
+make client
+ls
+rm -rf env
+make env
+make env
+make client
+ls
+ls ENV
+make client
+source ./ENV/bin/activate
+./ENV/bin/activate
+chmod a+x ./ENV/bin/activate
+./ENV/bin/activate
+which python
+source ENV/bin/activate
+ls
+ls
+pwd | pbcopy
+cd projects/
+lein new app biotechweekly.com
+cd biotechweekly.com/
+ls
+tree
+cd ..
+rm -rf biotechweekly.com
+lein new app biotechweekly
+cd biotechweekly/
+ls
+wget https://gist.githubusercontent.com/bsima/88969126962803a6500f/raw/23cc85d204637ee6626e1dfe357a36af7c02afe5/boot.project
+ls
+mv boot.project build.boot
+ls
+cd ..
+mv biotechweekly/build.boot ./
+lein new cryogen biotechweekly
+cd biotechweekly/
+ls
+cd ..
+rm -rf biotechweekly/
+lein new cryogen biotechweekly
+cd biotechweekly/
+ls
+lein ring server
+cd ..
+rm -rf biotechweekly
+mkdir biotechweekly.com
+cd biotechweekly.com
+git init
+unzip ~/Downloads/html5-boilerplate-4.3.0.zip 
+ls
+mv html5-boilerplate-4.3.0/* ./
+ls -all html5-boilerplate-4.3.0/
+mv html5-boilerplate-4.3.0/.* ./
+rd html5-boilerplate-4.3.0/
+rmdir html5-boilerplate-4.3.0/
+ls
+ls -l
+php -S localhost:8080
+ls
+cd ..
+lein deps
+ls
+which bower
+mkdir cl-rdr/{server,client}
+mkdir -p cl-rdr/{server,client}
+cd cl-rdr
+ls
+rm ./*
+rm -rf ./*
+ls
+mkdir {server,client}
+ls
+ls
+l
+ls -l
+rm -rf server,client:\ command\ not\ found/
+ls
+mkdir server
+mkdir client
+ls
+cd client
+ls
+bower init
+cd ../..
+mv cl-rdr rdr
+cd rdr
+ls
+echo "A quick little RSS reader for my own specific use case" > README.md
+cd client/
+ls
+which coffee
+npm install -g coffee-script
+s3cmd
+ls
+cd ..
+ls
+rm -rf {client,server}
+rm -rf client server
+ls
+ls

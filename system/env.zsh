@@ -1,5 +1,8 @@
 export EDITOR='emacs'
 
+
+SHELLY_HOME=/Users/bsima/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
+
 # ## Amazon AMI Tools ##
 #
 # Not sure if this is the best place for it but whatevs.
