@@ -160,9 +160,9 @@ directory for easier identification if useing multiple eshells."
 ;(load-theme 'tangotango t)
 
 ;; change theme based on day/night
-(setq calendar-location-name "Dallas, TX") 
-(setq calendar-latitude 32.85)
-(setq calendar-longitude -96.85)
+(setq calendar-location-name "Home") 
+(setq calendar-latitude 40.81)
+(setq calendar-longitude 81.50)
 
 (require 'theme-changer)
 (change-theme 'solarized-light 'solarized-dark)
