@@ -42,6 +42,15 @@
 (setq inferior-lisp-program "sbcl")
 
 ;; Clojure
+(add-to-list 'auto-mode-alist '("\\.boot" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.hl" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs" . clojure-mode))
+
+
+;; Ruby
+(add-to-list 'auto-mode-alist '("\\Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Rakefile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Guardfile" . ruby-mode))
 
 ;; Python
 ; ... To be continued
@@ -49,6 +58,10 @@
 ;; OCaml
 ; ... To be continued
 
+
+;; JavaScript
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Environment
@@ -59,7 +72,7 @@
 (defvar emacs-root (if (or (eq system-type 'darwin)
                            (eq system-type 'gnu/linux)
                            (eq system-type 'linux))
-                        "/home/bsima/.emacs.d/"
+                        "/home/bsima/.dotfiles/emacs.d.symlink/"
                         "c:/home/bsima"))
 
 ;;;;;;;;;
@@ -140,14 +153,24 @@ directory for easier identification if useing multiple eshells."
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(setq fantasque-font "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-(set-frame-font fantasque-font nil t)
+(set-frame-font
+ "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1" nil t)
 
-(load-theme 'tangotango t)
+;; tangotango is a good all-around theme
+;(load-theme 'tangotango t)
 
-;; load transpose-frame
-(load-file (concat emacs-root "transpose-frame.el"))
-(require 'transpose-frame)
+;; change theme based on day/night
+(setq calendar-location-name "Dallas, TX") 
+(setq calendar-latitude 32.85)
+(setq calendar-longitude -96.85)
+
+(require 'theme-changer)
+(change-theme 'solarized-light 'solarized-dark)
+
+
+;; load transpose-frame (this doesn't really work...)
+;(load-file (concat emacs-root "transpose-frame.el"))
+;(require 'transpose-frame)
 
 (load-library "~/.emacs-local")
 

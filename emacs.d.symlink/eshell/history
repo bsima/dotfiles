@@ -1,128 +1,128 @@
-ls env/bin
-source env/bin/activate
-env/bin/activate
-chmod a+x env/bin/activate
-env/bin/activate
-source env/bin/activate
-rm -rf env
-make client
-echo $PATH
-make client
-make env
-echo $VENV
-make env
 ls
-sudo make env
-virtualenv
-virtualenv env
-make env
-make env
-make env
-rm -rf env
-make env
-make client
-make client
-make client
-make env
-make client
-make client
-make client
+cd ~/do
+cd ~/Dropbox/
+cd ~/Downloads/
 ls
-rm -rf env
-make env
-make env
-make client
+mv leaflet-0.7.3\ \(1\).zip leaflet-0.7.3.zip
+find leaflet-0.7.3.zip 
+unzip leaflet-0.7.3.zip ~/projects/cljsjs/packages/leaflet
+unzip leaflet-0.7.3.zip ~/projects/cljsjs/packages/leaflet/
+cd ~/projects/cljsjs/packages/leaflet/
+unzip ~/Downloads/leaflet-0.7.3.zip 
+shasum ~/Downloads/leaflet-0.7.3.zip 
 ls
-ls ENV
-make client
-source ./ENV/bin/activate
-./ENV/bin/activate
-chmod a+x ./ENV/bin/activate
-./ENV/bin/activate
-which python
-source ENV/bin/activate
+boot sift -h
+boot package
+boot package
+wget  http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.3.zip
 ls
+shasum leaflet-0.7.3.zip 
+boot download -h
+unzip leaflet-0.7.3.zip 
+unzip leaflet-0.7.3.zip 
+boot package
+boot package
+boot repl
+boot package
+boot package
+boot sift -h
 ls
-pwd | pbcopy
-cd projects/
-lein new app biotechweekly.com
-cd biotechweekly.com/
+mv -p leaflet-0.7.3.zip tmp/
+mkdir tmp
+mv leaflet-0.7.3.zip tmp/
+cd tmp
 ls
+unzip leaflet-0.7.3.zip 
 tree
 cd ..
-rm -rf biotechweekly.com
-lein new app biotechweekly
-cd biotechweekly/
 ls
-wget https://gist.githubusercontent.com/bsima/88969126962803a6500f/raw/23cc85d204637ee6626e1dfe357a36af7c02afe5/boot.project
+boot package
+git fetch origin master
+git fetch origin leaflet
+git pull origin master
+git status
+git status
+git push origin leaflet
+git push origin leaflet
+boot package
+boot package
+cd workspace/
+mkdir latte
+cd latte
+git clone https://bsima@github.com/SalzmanGroup/lavazza.git
+cd lavazza
+git remote -v
+git remote rm origin
+git remote -v
+git remote add origin git@github.com:SalzmanGroup/lavazza.git
+git remote add https https://bsima@github.com/SalzmanGroup/lavazza.git
+git remote -v
+source /Users/bsima/.rvm/scripts/rvm
+which rvm
+cd .rvm/scripts/
 ls
-mv boot.project build.boot
+cat .cd
+cat cd
+./rvm
+rvm
+sh rvm
+export PATH="$HOME/.rvm/scripts:$PATH"
+which rvm
+source ./rvm
 ls
+git status
+git fetch origin preview
+git pull origin preview
+mv ~/Downloads/lavazza_development.sql ./
+ls
+cd ../../simplyroi/simplyroi
+ls
+boot build-docker
+boot dockerize
+build deploy!
+boot deploy!
+export AWS_ACCESS_KEY=AKIAIK5BXDHRU74TJZSAexport AWS_SECRET_KEY=poUR+riSwR+gKHn48Yh8VCxyhu8iGGzey+TkLxcD
+boot deploy!
+cd ~/projects/cljsjs/packages/leaflet/
+git fetch upstream master
+boot package
+lein externs > externs.js
+ls
+boot package
+boot package
+boot package
 cd ..
-mv biotechweekly/build.boot ./
-lein new cryogen biotechweekly
-cd biotechweekly/
+git status
+git pull origin master
+git fetch upstream master
+git checkout -b upstream-master
+git pull upstream-master
+git pull upstream master
 ls
-cd ..
-rm -rf biotechweekly/
-lein new cryogen biotechweekly
-cd biotechweekly/
+git status
+cd leaflet
 ls
-lein ring server
-cd ..
-rm -rf biotechweekly
-mkdir biotechweekly.com
-cd biotechweekly.com
-git init
-unzip ~/Downloads/html5-boilerplate-4.3.0.zip 
-ls
-mv html5-boilerplate-4.3.0/* ./
-ls -all html5-boilerplate-4.3.0/
-mv html5-boilerplate-4.3.0/.* ./
-rd html5-boilerplate-4.3.0/
-rmdir html5-boilerplate-4.3.0/
-ls
-ls -l
-php -S localhost:8080
-ls
-cd ..
-lein deps
-ls
-which bower
-mkdir cl-rdr/{server,client}
-mkdir -p cl-rdr/{server,client}
-cd cl-rdr
-ls
-rm ./*
-rm -rf ./*
-ls
-mkdir {server,client}
+touch build.boot
+rm build.boot
 ls
 ls
-l
-ls -l
-rm -rf server,client:\ command\ not\ found/
 ls
-mkdir server
-mkdir client
+tree target
+rm -rf target
+boot package
+boot package
+boot package
 ls
-cd client
+tree target
 ls
-bower init
-cd ../..
-mv cl-rdr rdr
-cd rdr
+rm -rf target
 ls
-echo "A quick little RSS reader for my own specific use case" > README.md
-cd client/
-ls
-which coffee
-npm install -g coffee-script
-s3cmd
-ls
-cd ..
-ls
-rm -rf {client,server}
-rm -rf client server
+git remote -v
+git remote rm origin
+git remot add origin https://bsima@github.com/Thinkful-Ed/curric-data-001-v1.git
+git remote -v
 ls
 ls
+ls
+x
+exit

@@ -4,9 +4,19 @@
 (setq mc/cmds-to-run-for-all
       '(
 	end-of-visual-line
+	indent-for-tab-command
+	markdown-cycle
+	paredit-close-round
 	paredit-forward-barf-sexp
+	paredit-forward-delete
+	paredit-forward-slurp-sexp
+	paredit-open-round
+	python-indent-electric-colon
+	sgml-slash
 	))
 
 (setq mc/cmds-to-run-once
       '(
+	markdown-exdent-or-delete
+	switch-to-buffer
 	))
