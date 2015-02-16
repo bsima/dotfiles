@@ -1,0 +1,15 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '((".githunt.io"
+  [url-cookie "__cfduid" "d4b4a4cc9c51900ef4f61b110c3dc0de91424110072" "16 Feb 16 18:07:52 [GMT]" "/" ".githunt.io" nil]
+  [url-cookie "HttpOnly" nil "16 Feb 16 18:07:52 [GMT]" "/" ".githunt.io" nil]))
+)
+(setq url-cookie-secure-storage
+ 'nil)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:
