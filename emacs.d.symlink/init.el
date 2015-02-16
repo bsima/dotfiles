@@ -51,6 +51,7 @@
 (add-to-list 'auto-mode-alist '("\\Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\Guardfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec" . ruby-mode))
 
 ;; Python
 ; ... To be continued
@@ -66,19 +67,49 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Environment
 
-(require 'cl) ;; use common lisp everywhere
+(require 'cl-lib) ;; use common lisp everywhere
 
 ;; My emacs home directory
 (defvar emacs-root (if (or (eq system-type 'darwin)
                            (eq system-type 'gnu/linux)
                            (eq system-type 'linux))
-                        "/home/bsima/.dotfiles/emacs.d.symlink/"
+                        "/Users/bsima/.dotfiles/emacs.d.symlink/"
                         "c:/home/bsima"))
+
+(defun edit-init ()
+  "Edits my configuration file"
+  (interactive)
+  (find-file (concat emacs-root "init.el")))
+
+(defun load-init ()
+  "Loads my init file"
+  (interactive)
+  (load-file (concat emacs-root "init.el")))
+
+(defun open-github (&optional path)
+  "Opens GitHub.com. Prompts for an optional argument of a path to GitHub.
+
+For example: `explore` would resolve to https://github.com/explore, and
+`bsima/bsima` would resolve to https://github.com/bsima/bsima. If no path is
+provided, it defaults to https://github.com"
+  (interactive "sGitHub Path: ")
+  (browse-url
+   (if (null path)
+      "https://github.com"
+      (concat "https://github.com/" path))))
+
+(defun search-ddg (query)
+  "Seraches DuckDuckGo for query."
+  (interactive "sDDG: ")
+  (let ((q (replace-regexp-in-string "\s" "+" query t t)))
+    (browse-url (concat "https://duckduckgo.com?q=" q))))
 
 ;;;;;;;;;
 ;; src => http://howardism.org/Technical/Emacs/eshell-fun.html
 (defun eshell-here ()
-  "Opens up a new shell in the directory assiated with the
+  "Opens a new eshell in current directory.
+
+Opens up a new shell in the directory instantiated with the
 current buffer's file. The eshell is renamed to match said
 directory for easier identification if useing multiple eshells."
   (interactive)
@@ -118,7 +149,8 @@ directory for easier identification if useing multiple eshells."
 ;;;    C->         Mark the next similar (not-continuous)
 ;;;    C->         Mark the previous similiar (not-continuous)
 ;;;    C-c C-<     Mark all similar (not-continuous)
-;;;
+;;;    C-q         Goto line
+;;;    C-c C-s     Search DuckDuckGo
 
 (global-set-key (kbd "C-:") 'eshell-here)
 (global-set-key (kbd "C-;") 'execute-extended-command)
@@ -129,6 +161,8 @@ directory for easier identification if useing multiple eshells."
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key (kbd "M-L") 'linum-mode)
+(global-set-key (kbd "C-q") 'goto-line)
+(global-set-key (kbd "C-c C-s") 'search-ddg)
 
 ;; M-x qrr = find and replace
 (defalias 'qrr 'query-replace-regexp)
@@ -161,8 +195,8 @@ directory for easier identification if useing multiple eshells."
 
 ;; change theme based on day/night
 (setq calendar-location-name "Home") 
-(setq calendar-latitude 40.81)
-(setq calendar-longitude 81.50)
+(setq calendar-latitude 43.16)
+(setq calendar-longitude -77.61)
 
 (require 'theme-changer)
 (change-theme 'solarized-light 'solarized-dark)
