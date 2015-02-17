@@ -141,7 +141,7 @@ directory for easier identification if useing multiple eshells."
 ;;;    C-;         same as M-x
 ;;;    C-x C-m     same as M-x
 ;;;    C-c C-m     same as M-x
-;;;    C-w         backspace
+;;;    C-z         backspace
 ;;;    C-x/c C-k   cut selected text
 ;;;    M-Shift-L   toggle line numbers
 ;;;  Multiple cursors
@@ -157,15 +157,18 @@ directory for easier identification if useing multiple eshells."
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 (global-set-key (kbd "C-\"") 'shell-command)
-(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-z" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key (kbd "M-L") 'linum-mode)
 (global-set-key (kbd "C-q") 'goto-line)
 (global-set-key (kbd "C-c C-s") 'search-ddg)
 
-;; M-x qrr = find and replace
+;; M-x qrr == find and replace
 (defalias 'qrr 'query-replace-regexp)
+
+;; M-x mx  == magit-status
+(defalias 'ms 'magit-status)
 
 ;;; Multiple cursors
 ;;; http://github.com/magnars/multiple-cursors.el
