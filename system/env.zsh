@@ -1,12 +1,4 @@
-export EDITOR='emacs'
+export EDITOR='mate'
 
 
 SHELLY_HOME=/Users/bsima/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
-
-# ## Amazon AMI Tools ##
-#
-# Not sure if this is the best place for it but whatevs.
-#export JAVA_HOME="$(/usr/libexec/java_home)"
-#export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/*.pem | /usr/bin/head -1)"
-#export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
-#export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.4.0.9/libexec"
