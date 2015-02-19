@@ -151,6 +151,7 @@ directory for easier identification if useing multiple eshells."
 ;;;    C-c C-<     Mark all similar (not-continuous)
 ;;;    C-q         Goto line
 ;;;    C-c C-s     Search DuckDuckGo
+;;;    C-`         Insert character literal (`quoted-insert`)
 
 (global-set-key (kbd "C-:") 'eshell-here)
 (global-set-key (kbd "C-;") 'execute-extended-command)
@@ -163,6 +164,7 @@ directory for easier identification if useing multiple eshells."
 (global-set-key (kbd "M-L") 'linum-mode)
 (global-set-key (kbd "C-q") 'goto-line)
 (global-set-key (kbd "C-c C-s") 'search-ddg)
+(global-set-key (kbd "C-`") `quoted-insert)
 
 ;; M-x qrr == find and replace
 (defalias 'qrr 'query-replace-regexp)
