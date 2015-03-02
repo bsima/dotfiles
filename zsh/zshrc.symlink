@@ -47,10 +47,10 @@ done
 
 unset config_files
 
-CIM_HOME=/Users/bsima/.cim; [ -s '/Users/bsima/.cim/init.sh' ] && . '/Users/bsima/.cim/init.sh'
-
 # Powerline stuff
 #. /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # OPAM configuration
 . /Users/bsima/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
