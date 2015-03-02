@@ -1,2 +1,8 @@
 #!/bin/sh
-/Applications/Emacs.app/Contents/MacOS/Emacs "$@"
+
+if [ "$(uname -s)" == "Darwin" ]
+then
+  /Applications/Emacs.app/Contents/MacOS/Emacs "$@"
+else
+  ~/.nix-profile/bin/emacs
+fi
