@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+alias streak="curl -s https://github.com/bsima | pup '#contributions-calendar > div:nth-child(5) > span.contrib-number text{}'"
+
 alias reload!='. ~/.zshrc'
 
 # Push and pop directories on directory stack
