@@ -29,22 +29,61 @@
 	     '("melpa" . "http://melpa.org/packages/") t)
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
+
+(setq package-enable-at-startup nil); Don't initialize later as well
 (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Languages
 
+;; General
+(setq-default indent-tabs-mode nil)
 
-;; Lisp
+;; Lisp general / elis
+(rainbow-delimiters-mode)
+(require-package 'paredit)
+(show-paren-mode)
+(require 'hl-sexp)
+(add-hook 'emacs-lisp-mode-hook #'hl-sexp-mode)
+(add-hook 'emacs-lisp-mode-hook #'paredit-mode)
 
 ;; SBCL
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;(load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
+(add-hook 'lisp-mode-hook #'hl-sexp-mode)
+(add-hook 'lisp-mode-hook #'paredit-mode)
 
 ;; Clojure
 (add-to-list 'auto-mode-alist '("\\.boot" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.hl" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs" . clojure-mode))
+(require-package 'cider)
+(require-package 'company)
+
+(setq cider-repl-history-file "~/.emacs.d/cider-history")
+(setq cider-repl-use-pretty-printing t)
+(setq cider-repl-use-clojure-font-lock t)
+(setq cider-repl-result-prefix ";; => ")
+(setq cider-repl-wrap-history t)
+(setq cider-repl-history-size 3000)
+(add-hook 'cider-mode-hook #'eldoc-mode)
+(setq cider-show-error-buffer nil)
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+(add-hook 'clojure-mode-hook #'hl-sexp-mode)
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
 
 
 ;; Ruby
@@ -70,11 +109,10 @@
 (require 'cl-lib) ;; use common lisp everywhere
 
 ;; My emacs home directory
-(defvar emacs-root (if (or (eq system-type 'darwin)
-                           (eq system-type 'gnu/linux)
-                           (eq system-type 'linux))
-                        "/Users/bsima/.dotfiles/emacs.d.symlink/"
-                        "c:/home/bsima"))
+(defvar emacs-root (if (or (eq system-type 'gnu/linux)
+			   (eq system-type 'linux))
+                        "/home/bsima/.dotfiles/emacs.d.symlink/"
+                        "/Users/bsima/.dotfiles/emacs.d.symlink/"))
 
 (defun edit-init ()
   "Edits my configuration file"
@@ -103,6 +141,14 @@ provided, it defaults to https://github.com"
   (interactive "sDDG: ")
   (let ((q (replace-regexp-in-string "\s" "+" query t t)))
     (browse-url (concat "https://duckduckgo.com?q=" q))))
+
+(defun markdown-to-html ()
+  (interactive)
+  (let* ((basename (file-name-sans-extension (buffer-file-name)))
+         (html-filename (format "%s.html" basename)))
+    (shell-command (format "pandoc -o %s %s"
+                           html-filename (buffer-file-name)))
+    (find-file-other-window html-filename)))
 
 ;;;;;;;;;
 ;; src => http://howardism.org/Technical/Emacs/eshell-fun.html
@@ -194,8 +240,8 @@ directory for easier identification if useing multiple eshells."
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(set-frame-font
- "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1" nil t)
+;(set-frame-font
+; "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1" nil t)
 
 ;; tangotango is a good all-around theme
 ;(load-theme 'tangotango t)
@@ -213,6 +259,19 @@ directory for easier identification if useing multiple eshells."
 ;(load-file (concat emacs-root "transpose-frame.el"))
 ;(require 'transpose-frame)
 
-(load-library "~/.emacs-local")
+;(load-library "~/.emacs-local")
 
 ;;; end .emacs
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(magit-use-overlays nil)
+ '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Base . 10)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
