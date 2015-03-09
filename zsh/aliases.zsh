@@ -2,6 +2,9 @@
 
 alias streak="curl -s https://github.com/bsima | pup '#contributions-calendar > div:nth-child(5) > span.contrib-number text{}'"
 
+# temporary userland startup command
+alias start="xmodmap ~/.Xmodmap; chromium &> /dev/null &; emacs &> /dev/null &; echo Starting apps\!; echo Your current github streak is:; streak"
+
 alias reload!='. ~/.zshrc'
 
 # Push and pop directories on directory stack
