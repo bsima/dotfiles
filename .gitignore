@@ -3,3 +3,15 @@ sublime2/User/Package Control.last-run
 git/gitconfig.symlink
 vim/.netrwhist
 .quicklisp-path
+emacs.d.symlink/elpa
+emacs.d.symlink/.sx
+emacs.d.symlink/auto-save-list
+emacs.d.symlink/cider-history
+emacs.d.symlink/elisp
+emacs.d.symlink/eshell
+emacs.d.symlink/image-dired
+emacs.d.symlink/jabber-avatar-cache
+emacs.d.symlink/session*
+emacs.d.symlink/srecode-map.el
+emacs.d.symlink/tutorial
+cache
