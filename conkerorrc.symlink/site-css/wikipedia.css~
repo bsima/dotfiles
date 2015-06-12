@@ -1,0 +1,13 @@
+/**
+ * Custom styles for Wikipedia
+ */
+
+
+#mw-panel, #siteNotice, #mw-head, #my-page-base, #mw-head-base, #footer, #mw-articlefeedback { 
+    display: none !important;
+}
+
+/* expand content to fill the page */
+div#content {
+    margin-left: 0em !important;
+}
