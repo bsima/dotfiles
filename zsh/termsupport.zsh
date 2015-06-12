@@ -36,3 +36,25 @@ function omz_termsupport_preexec {
 autoload -U add-zsh-hook
 add-zsh-hook precmd  omz_termsupport_precmd
 add-zsh-hook preexec omz_termsupport_preexec
+
+## helpers for emacs terminal emulation
+prompt_eterm_precmd () {
+  case $TERM in
+    xterm*)
+      print -Pn "\e]0;%n@%m:%~ (%l)\a"
+      ;;
+    eterm-color*)
+      print -P "\eAnSiTh %m"
+      print -P "\eAnSiTu %n"
+      print -P "\eAnSiTc %~"
+      ;;
+  esac
+}
+
+if [ "${TERM}x" = "eterm-colorx" ]
+then
+  alias e='print -P "\eAnSiTe"'
+  alias x='print -P "\eAnSiTx"'
+else
+  alias e='emacsclient -n -t -a nano'
+fi

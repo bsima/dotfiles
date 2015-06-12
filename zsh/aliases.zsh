@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-alias streak="curl -s https://github.com/bsima | pup '#contributions-calendar > div:nth-child(5) > span.contrib-number text{}'"
+#alias streak="curl -s https://github.com/bsima | pup '#contributions-calendar > div:nth-child(5) > span.contrib-number text{}'"
 
 # temporary userland startup command
 alias start="xmodmap ~/.Xmodmap; chromium &> /dev/null &; emacs &> /dev/null &; redshift -l 43.16:-77.61 &> /dev/null &; echo Starting apps\!; echo Your current github streak is:; streak"
@@ -39,3 +39,6 @@ alias rm='rm -i'
 # Capify is so much more climactic...
 alias capify="bundle exec cap install"
 alias capify!="bundle exec cap install"
+
+# Install rust nightly
+alias getrust="curl -sSf https://static.rust-lang.org/rustup.sh | sh; sudo ldconfig"

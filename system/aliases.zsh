@@ -15,12 +15,11 @@ alias ss='./script/server'
 alias sc='./script/console'
 alias tag="ctags -R config -R app -R lib -R script -R spec"
 alias tag!="ctags -R ."
-alias be="bundle exec"
+
 
 alias easy_off='sudo kextunload -v /System/Library/Extensions/EasyTetherUSBEthernet.kext'
 
-alias c='bundle exec cucumber'
-alias s='bundle exec rspec'
+
 alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | 
    cut -d\   -f2"
 
