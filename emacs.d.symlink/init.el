@@ -25,8 +25,10 @@
 (require 'package)
 
 ;; Load packages
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+;; FIXME: these should be https, but there is a bug, see:
+;; https://github.com/nicferrier/elmarmalade/issues/55
+(add-to-list 'package-archives '("melpa"     . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 
@@ -91,12 +93,31 @@ re-downloaded in order to locate PACKAGE."
 (add-to-list 'auto-mode-alist '("\\Rakefile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\Guardfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.haml" . haml-mode))
+
+(add-hook 'ruby-mode-hook 'robe-mode)
+(require 'rvm)
+;(rvm-use-default)
+
+; Get rvm.el to auto start before using robe
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
+
+;; SASS
+(add-to-list 'auto-mode-alist '("\\.scss" . sass-mode))
+(add-to-list 'auto-mode-alist '("\\.sass" . sass-mode))
+
+;; CoffeeScript
+(coffee-tab-width 2)
+
 
 ;; Python
-; ... To be continued
+;;(require 'virtualenvwrapper)
+;;(venv-initialize-eshell)
 
 ;; OCaml
-; ... To be continued
+;; ... To be continued
 
 
 ;; JavaScript
@@ -114,6 +135,14 @@ re-downloaded in order to locate PACKAGE."
                         "/home/bsima/.dotfiles/emacs.d.symlink/"
                         "/Users/bsima/.dotfiles/emacs.d.symlink/"))
 
+;; Configure backups and autosaves
+(setq backup-by-copying t
+      backup-directory-alist '(("." . "~/.saves"))
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+
 (defun edit-init ()
   "Edits my configuration file"
   (interactive)
@@ -123,6 +152,91 @@ re-downloaded in order to locate PACKAGE."
   "Loads my init file"
   (interactive)
   (load-file (concat emacs-root "init.el")))
+
+(defun aris () (interactive) (find-file "/home/bsima/projects/aristotl/TODO.org"))
+
+;; I want yasnippet everywhere
+(require 'yasnippet)
+(yas-global-mode 1)
+(setq yas-snippet-dirs
+      '("~/me/system/snippets" ;; personal snippets in my dotme repo
+        "~/me/system/snippets/yasnippet-snippets"))
+
+
+;; Shell emulator stuff
+
+(require 'eshell)
+(require 'em-smart)
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
+; http://paralambda.org/2012/07/02/using-gnu-emacs-as-a-terminal-emulator/
+(when (require 'multi-term nil t)
+  (global-set-key (kbd "<f5>") 'multi-term)
+  (global-set-key (kbd "<C-next>") 'multi-term-next)
+  (global-set-key (kbd "<C-prior>") 'multi-term-prev)
+  (setq multi-term-buffer-name "term"
+        multi-term-program "/bin/zsh"))
+
+(when (require 'term nil t) ; only if term can be loaded..
+  (setq term-bind-key-alist
+        (list (cons "C-c C-c"   'term-interrupt-subjob)
+              (cons "C-p"       'previous-line)
+              (cons "C-n"       'next-line)
+              (cons "M-f"       'term-send-forward-word)
+              (cons "M-b"       'term-send-backward-word)
+              (cons "C-c C-j"   'term-line-mode)
+              (cons "C-c C-k"   'term-char-mode)
+              (cons "M-DEL"     'term-send-backward-kill-word)
+              (cons "M-d"       'term-send-forward-kill-word)
+              (cons "<C-left>"  'term-send-backward-word)
+              (cons "<C-right>" 'term-send-forward-word)
+              (cons "C-r"       'term-send-reverse-search-history)
+              (cons "M-p"       'term-send-raw-meta)
+              (cons "M-y"       'term-send-raw-meta)
+              (cons "C-y"       'term-send-raw))))
+
+(when (require 'term nil t)
+  (defun term-handle-ansi-terminal-messages (message)
+    (while (string-match "\eAnSiT.+\n" message)
+      ;; Extract the command code and the argument.
+      (let* ((start (match-beginning 0))
+             (command-code (aref message (+ start 6)))
+             (argument
+              (save-match-data
+                (substring message
+                           (+ start 8)
+                           (string-match "\r?\n" message
+                                         (+ start 8))))))
+        ;; Delete this command from MESSAGE.
+        (setq message (replace-match "" t t message))
+        
+        (cond ((= command-code ?c)
+               (setq term-ansi-at-dir argument))
+              ((= command-code ?h)
+               (setq term-ansi-at-host argument))
+              ((= command-code ?u)
+               (setq term-ansi-at-user argument))
+              ((= command-code ?e)
+               (save-excursion
+                 (find-file-other-window argument)))
+              ((= command-code ?x)
+               (save-excursion
+                 (find-file argument))))))
+    
+    (when (and term-ansi-at-host term-ansi-at-dir term-ansi-at-user)
+      (setq buffer-file-name
+            (format "%s@%s:%s" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))
+      (set-buffer-modified-p nil)
+      (setq default-directory (if (string= term-ansi-at-host (system-name))
+                                  (concatenate 'string term-ansi-at-dir "/")
+                                (format "/%s@%s:%s/" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))))
+    message))
+
+
+;; Make EWW use Chromium
+(setq shr-external-browser "chromium-browser")
 
 (defun open-github (&optional path)
   "Opens GitHub.com. Prompts for an optional argument of a path to GitHub.
@@ -141,6 +255,18 @@ provided, it defaults to https://github.com"
   (interactive "sDDG: ")
   (let ((q (replace-regexp-in-string "\s" "+" query t t)))
     (browse-url (concat "https://duckduckgo.com?q=" q))))
+
+;;this not workie
+(defun jabber ()
+  "Starts up jabber and switches to the buffer."
+  (interactive)
+  (jabber-connect jabber-username jabber-server jabber-network-server nil jabber-password)
+  (switch-to-buffer "*-jabber-*"))
+
+(defun connect-remote (user ip)
+  "Opens an SSH tunnel to remote host with full emacs functionality."
+  (interactive "sUser: \nsIP: ")
+  (dired (format "/%s@%s:/" user ip)))
 
 (defun markdown-to-html ()
   (interactive)
@@ -180,6 +306,11 @@ directory for easier identification if useing multiple eshells."
 ;; also useful: http://www.masteringemacs.org/article/complete-guide-mastering-eshell
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Org mode stuff
+
+;;; blah blah blah
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Keyboard shortcuts
 ;;;
 ;;;    C-:         new eshell in lower third (eshell-here)
@@ -191,14 +322,19 @@ directory for easier identification if useing multiple eshells."
 ;;;    C-z         kill selected region (like cut)
 ;;;    C-x/c C-k   cut selected text
 ;;;    M-Shift-L   toggle line numbers
+;;;    C-q         Goto line
+;;;    C-c C-s     Search DuckDuckGo
+;;;    C-`         Insert character literal (`quoted-insert`)
+;;;
 ;;;  Multiple cursors
 ;;;    C-S-s C-S-s Add cursor to each line in a region
 ;;;    C->         Mark the next similar (not-continuous)
 ;;;    C->         Mark the previous similiar (not-continuous)
 ;;;    C-c C-<     Mark all similar (not-continuous)
-;;;    C-q         Goto line
-;;;    C-c C-s     Search DuckDuckGo
-;;;    C-`         Insert character literal (`quoted-insert`)
+;;;
+
+;; Don't disable the upcase-region function, I seem to use it alot
+(put 'upcase-region 'disabled nil)
 
 (global-set-key (kbd "C-:") 'eshell-here)
 (global-set-key (kbd "C-;") 'execute-extended-command)
@@ -212,13 +348,17 @@ directory for easier identification if useing multiple eshells."
 (global-set-key (kbd "M-L") 'linum-mode)
 (global-set-key (kbd "C-q") 'goto-line)
 (global-set-key (kbd "C-c C-s") 'search-ddg)
-(global-set-key (kbd "C-`") `quoted-insert)
+(global-set-key (kbd "C-`") 'quoted-insert)
+(global-set-key (kbd "C-.") 'hs-toggle-hiding)
 
 ;; M-x qrr == find and replace
 (defalias 'qrr 'query-replace-regexp)
 
 ;; M-x mx  == magit-status
 (defalias 'ms 'magit-status)
+
+;; M-x mt == multi-term
+(defalias 'mt 'multi-term)
 
 ;;; Multiple cursors
 ;;; http://github.com/magnars/multiple-cursors.el
@@ -240,38 +380,24 @@ directory for easier identification if useing multiple eshells."
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-;(set-frame-font
-; "-apple-Fantasque_Sans_Mono-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1" nil t)
+;;; Fonts
+(defun font-candidate (&rest fonts)
+  "Return existing font which first match."
+  (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
+         
+(set-face-attribute 'default nil :font (font-candidate '"Fantasque Sans Mono-11:weight=normal"))
 
 ;; tangotango is a good all-around theme
-;(load-theme 'tangotango t)
+(load-theme 'tangotango t)
 
 ;; change theme based on day/night
 (setq calendar-location-name "Home") 
 (setq calendar-latitude 43.16)
 (setq calendar-longitude -77.61)
 
-(require 'theme-changer)
-(change-theme 'solarized-light 'solarized-dark)
+;(require 'theme-changer)
+;(change-theme 'solarized-light 'solarized-dark)
 
-
-;; load transpose-frame (this doesn't really work...)
-;(load-file (concat emacs-root "transpose-frame.el"))
-;(require 'transpose-frame)
-
-;(load-library "~/.emacs-local")
+(load-library "~/.emacs-local")
 
 ;;; end .emacs
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(magit-use-overlays nil)
- '(safe-local-variable-values (quote ((Syntax . ANSI-Common-Lisp) (Base . 10)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
