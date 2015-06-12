@@ -14,4 +14,6 @@ emacs.d.symlink/jabber-avatar-cache
 emacs.d.symlink/session*
 emacs.d.symlink/srecode-map.el
 emacs.d.symlink/tutorial
+emacs.d.symlink/.mc-lists.el
+emacs.d.symlink/var
 cache
