@@ -41,4 +41,4 @@ alias capify="bundle exec cap install"
 alias capify!="bundle exec cap install"
 
 # Install rust nightly
-alias getrust="curl -sSf https://static.rust-lang.org/rustup.sh | sh; sudo ldconfig"
+alias rustup="curl -sSf https://static.rust-lang.org/rustup.sh | sh; echo 'You might need to do sudo ldconfig now!'"
