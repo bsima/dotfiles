@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-#alias streak="curl -s https://github.com/bsima | pup '#contributions-calendar > div:nth-child(5) > span.contrib-number text{}'"
+alias streak="curl -s https://github.com/bsima | pup '#contributions-calendar > div:nth-child(5) > span.contrib-number text{}'"
 
 # temporary userland startup command
 alias start="xmodmap ~/.Xmodmap; chromium &> /dev/null &; emacs &> /dev/null &; redshift -l 43.16:-77.61 &> /dev/null &; echo Starting apps\!; echo Your current github streak is:; streak"
