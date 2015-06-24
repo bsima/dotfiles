@@ -415,7 +415,8 @@ directory for easier identification if useing multiple eshells."
 (set-face-attribute 'default nil :font (font-candidate '"Fantasque Sans Mono-11:weight=normal"))
 
 ;; tangotango is a good all-around theme
-(load-theme 'tangotango t)
+;;(load-theme 'tangotango t)
+(load-theme 'jazz t)
 
 ;; change theme based on day/night
 (setq calendar-location-name "Home") 
