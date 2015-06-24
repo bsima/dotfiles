@@ -109,7 +109,7 @@ re-downloaded in order to locate PACKAGE."
 (add-to-list 'auto-mode-alist '("\\.sass" . sass-mode))
 
 ;; CoffeeScript
-(coffee-tab-width 2)
+(setq coffee-tab-width 2)
 
 
 ;; Python
