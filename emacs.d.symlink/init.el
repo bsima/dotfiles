@@ -129,6 +129,8 @@ re-downloaded in order to locate PACKAGE."
 
 (require 'cl-lib) ;; use common lisp everywhere
 
+(projectile-global-mode)
+
 ;; My emacs home directory
 (defvar emacs-root (if (or (eq system-type 'gnu/linux)
 			   (eq system-type 'linux))
