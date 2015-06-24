@@ -135,6 +135,8 @@ re-downloaded in order to locate PACKAGE."
                         "/home/bsima/.dotfiles/emacs.d.symlink/"
                         "/Users/bsima/.dotfiles/emacs.d.symlink/"))
 
+(put 'downcase-region 'disabled nil)
+
 ;; Configure backups and autosaves
 (setq backup-by-copying t
       backup-directory-alist '(("." . "~/.saves"))
