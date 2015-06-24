@@ -12,7 +12,7 @@ xrandr --newmode "2048x1152_60.00" 197.00 2048 2184 2400 2752 1152 1155 1160 119
 xrandr --addmode eDP1 2048x1152_60.00
 xrandr --output eDP1 --mode 2048x1152_60.00
 
-alias dualscreen="xrandr --output eDP1 --mode 2048x1152_60.00 --output HDMI1 --auto --left-of eDP1"
+alias dualscreen="xrandr --output eDP1 --mode 2048x1152_60.00 --output HDMI1 --auto --right-of eDP1"
 
 # functions to switch from LVDS1 to HDMI1
 function ActivateHDMI {
