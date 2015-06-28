@@ -71,6 +71,8 @@ re-downloaded in order to locate PACKAGE."
 (add-to-list 'auto-mode-alist '("\\.boot" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.hl" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.edn" . clojure-mode))
+(add-hook 'clojure-mode-hook #'paredit-mode)
 (require-package 'cider)
 (require-package 'company)
 
@@ -414,7 +416,7 @@ directory for easier identification if useing multiple eshells."
   "Return existing font which first match."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
          
-(set-face-attribute 'default nil :font (font-candidate '"Fantasque Sans Mono-11:weight=normal"))
+(set-face-attribute 'default nil :font (font-candidate '"Fantasque Sans Mono-13:weight=normal"))
 
 ;; tangotango is a good all-around theme
 ;;(load-theme 'tangotango t)
