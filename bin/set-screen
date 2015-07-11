@@ -16,7 +16,8 @@ alias dualscreen="xrandr --output eDP1 --mode 2048x1152_60.00 --output HDMI1 --a
 
 # functions to switch from LVDS1 to HDMI1
 function ActivateHDMI {
-    xrandr --output HDMI1 --mode 1920x1200 --dpi 59.95 --output eDP1 --off
+    #xrandr --output HDMI1 --mode 1920x1200 --dpi 59.95 --output eDP1 --off
+    xrandr --output eDP1 --mode 2048x1152_60.00 --output HDMI1 --auto --right-of eDP1
     MONITOR=HDMI1
 }
 function DeactivateHDMI {
