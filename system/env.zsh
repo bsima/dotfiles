@@ -1,4 +1,4 @@
-export EDITOR='emacs'
+export EDITOR='vim'
 
 # Add nix to my shell environment
 if [ -e /home/bsima/.nix-profile/etc/profile.d/nix.sh ]; then . /home/bsima/.nix-profile/etc/profile.d/nix.sh; fi
