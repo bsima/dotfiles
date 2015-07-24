@@ -416,7 +416,7 @@ directory for easier identification if useing multiple eshells."
   "Return existing font which first match."
   (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
          
-(set-face-attribute 'default nil :font (font-candidate '"Fantasque Sans Mono-13:weight=normal"))
+(set-face-attribute 'default nil :font (font-candidate '"Fantasque Sans Mono-10:weight=normal"))
 
 ;; tangotango is a good all-around theme
 ;;(load-theme 'tangotango t)
